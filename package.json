@@ -1,0 +1,41 @@
+{
+  "name": "ai-recruiter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.4.5",
+    "@types/node": "20.11.30",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5"
+  },
+  
+  "scripts": {
+      "predev": "node tools/featurectl.js ensure",
+  
+      "Checkout_Feature": "node tools/pipeline.js Checkout_Feature",
+      "Test_Feature": "node tools/pipeline.js Test_Feature",
+      "Checkin_Feature": "node tools/pipeline.js Checkin_Feature",
+      "TestAll_Features": "node tools/pipeline.js TestAll_Features",
+      "PushCodeTo_UAT": "node tools/pipeline.js PushCodeTo_UAT",
+      "TestAll_Features_UAT": "node tools/pipeline.js TestAll_Features_UAT",
+      "PushCodeTo_PROD": "node tools/pipeline.js PushCodeTo_PROD",
+      "TestAll_Features_PROD": "node tools/pipeline.js TestAll_Features_PROD",
+  
+      "check": "eslint . && tsc -p tsconfig.json --noEmit && vitest run"
+    }
+  
+  
+}

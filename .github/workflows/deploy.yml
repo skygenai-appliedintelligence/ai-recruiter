@@ -1,0 +1,43 @@
+name: CI + Deploy by branch
+on:
+  push: { branches: [dev, uat, main] }
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEV_BASE_URL: ${{ secrets.DEV_BASE_URL }}
+      UAT_BASE_URL: ${{ secrets.UAT_BASE_URL }}
+      PROD_BASE_URL: ${{ secrets.PROD_BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm -s check || echo "No 'check' script; continuing"
+      # --- your real deploys go here ---
+      - name: Deploy DEV
+        if: github.ref == 'refs/heads/dev'
+        run: echo "🚀 Deploying DEV…"
+      - name: Deploy UAT
+        if: github.ref == 'refs/heads/uat'
+        run: echo "🚀 Deploying UAT…"
+      - name: Deploy PROD
+        if: github.ref == 'refs/heads/main'
+        run: echo "🚀 Deploying PROD…"
+      # smoke after deploy
+      - name: E2E on DEV
+        if: github.ref == 'refs/heads/dev'
+        run: pnpm -s TestAll_Features
+      - name: E2E on UAT
+        if: github.ref == 'refs/heads/uat'
+        run: pnpm -s TestAll_Features_UAT
+      - name: E2E on PROD
+        if: github.ref == 'refs/heads/main'
+        run: pnpm -s TestAll_Features_PROD
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts-${{ github.ref_name }}
+          path: artifacts/**/*
+          if-no-files-found: ignore

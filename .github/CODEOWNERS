@@ -1,0 +1,5 @@
+# Shared / common areas must be reviewed
+/components/ui          @your-org/shared-team
+lib                    @your-org/shared-team
+styles                 @your-org/shared-team
+types                  @your-org/shared-team

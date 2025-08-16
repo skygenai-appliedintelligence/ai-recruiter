@@ -1,0 +1,41 @@
+{
+  "home": {
+    "paths": [
+      "app"                
+    ],
+    "routes": ["/"]
+  },
+  "auth": {
+    "paths": [
+      "app/login",
+      "components/forms",
+      "app/api/auth/login"
+    ],
+    "routes": ["/login"]
+  },
+  "company_signup": {
+    "paths": [
+      "app/company/signup",
+      "components/forms",
+      "app/api/auth/company-signup"
+    ],
+    "routes": ["/company/signup"]
+  },
+  "layout": {
+    "paths": [
+      "components/layout",
+      "public/images",
+      "app"                 
+    ],
+    "routes": ["/", "/login", "/company/signup"]
+  },
+  "shared": {
+    "paths": [
+      "components/ui",
+      "lib",
+      "styles",
+      "types"
+    ],
+    "routes": []
+  }
+}
